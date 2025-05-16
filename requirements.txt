@@ -1,0 +1,24 @@
+# requirements.txt
+
+# Core data handling and numerical operations
+numpy>=1.20.0
+pandas>=1.3.0
+
+# Machine learning
+scikit-learn>=1.0.0
+
+# Statistical functions
+scipy>=1.7.0
+
+# Progress bars
+tqdm>=4.60.0
+
+# Plotting (optional if you remove plotting functions)
+matplotlib>=3.4.0
+
+# ---------------------------------------------------------------------------
+# Optional: For Autoencoder Baseline (currently commented out in the script)
+# If you uncomment and use the autoencoder baseline, you will need TensorFlow.
+# Keras is now part of TensorFlow (tf.keras).
+# ---------------------------------------------------------------------------
+tensorflow>=2.8.0
