@@ -2,11 +2,17 @@
 Model module for BaKC-plus
 
 This module provides OC-SVM implementation, ensemble learning, and bootstrapping.
+Preserves the exact methodology from the original notebook to ensure reproducible results.
 """
 
-# Exports will be added as modules are implemented
-# from .ocsvm import OCSVMMember
-# from .ensemble import EnsembleTrainer
-# from .bootstrapping import StratifiedBootstrapper
+from .bootstrapping import StratifiedBootstrapper, stratified_bootstrap
+from .ocsvm import OCSVMMember, create_ocsvm_member
 
-__all__ = []
+__all__ = [
+    # Bootstrapping
+    'StratifiedBootstrapper',
+    'stratified_bootstrap',
+    # OC-SVM
+    'OCSVMMember',
+    'create_ocsvm_member',
+]
