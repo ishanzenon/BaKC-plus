@@ -7,6 +7,7 @@ Preserves the exact methodology from the original notebook to ensure reproducibl
 
 from .bootstrapping import StratifiedBootstrapper, stratified_bootstrap
 from .ocsvm import OCSVMMember, create_ocsvm_member
+from .ensemble import EnsembleTrainer, train_ensemble
 
 __all__ = [
     # Bootstrapping
@@ -15,4 +16,7 @@ __all__ = [
     # OC-SVM
     'OCSVMMember',
     'create_ocsvm_member',
+    # Ensemble
+    'EnsembleTrainer',
+    'train_ensemble',
 ]
