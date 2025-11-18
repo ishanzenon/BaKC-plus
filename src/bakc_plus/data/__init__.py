@@ -2,11 +2,22 @@
 Data module for BaKC-plus
 
 This module provides data loading, validation, and preprocessing functionality.
+Preserves the exact methodology from the original notebook to ensure reproducible results.
 """
 
-# Exports will be added as modules are implemented
-# from .loader import DataLoader
-# from .validator import DataValidator
-# from .splitter import DataSplitter
+from .loader import DataLoader, load_dataset_from_config
+from .validator import DataValidator, validate_dataset
+from .splitter import DataSplit, DataSplitter, split_dataset
 
-__all__ = []
+__all__ = [
+    # Loader
+    'DataLoader',
+    'load_dataset_from_config',
+    # Validator
+    'DataValidator',
+    'validate_dataset',
+    # Splitter
+    'DataSplit',
+    'DataSplitter',
+    'split_dataset',
+]
