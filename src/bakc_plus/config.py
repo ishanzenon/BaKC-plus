@@ -10,6 +10,10 @@ from pathlib import Path
 from typing import Optional
 import yaml
 
+from .logger import get_logger
+
+logger = get_logger(__name__)
+
 
 @dataclass
 class DataConfig:
@@ -104,6 +108,30 @@ class ConformalConfig:
 
 
 @dataclass
+class LoggingConfig:
+    """
+    Logging configuration
+
+    Attributes:
+        level: Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+        enable_file_logging: Whether to enable file logging
+        log_file: Path to log file (None = default: output/logs/bakc_plus.log)
+        max_log_size_mb: Maximum log file size in MB before rotation
+        backup_count: Number of backup log files to keep
+    """
+    level: str = "INFO"
+    enable_file_logging: bool = True
+    log_file: Optional[Path] = None
+    max_log_size_mb: int = 10
+    backup_count: int = 5
+
+    def __post_init__(self):
+        """Convert string paths to Path objects"""
+        if self.log_file is not None and not isinstance(self.log_file, Path):
+            self.log_file = Path(self.log_file)
+
+
+@dataclass
 class BaKCConfig:
     """
     Main BaKC-plus configuration
@@ -115,6 +143,7 @@ class BaKCConfig:
         model: OC-SVM model configuration
         ensemble: Ensemble training configuration
         conformal: Conformal prediction configuration
+        logging: Logging configuration
         save_models: Whether to save trained models to disk
         save_calibration: Whether to save calibration scores
         save_predictions: Whether to save predictions to CSV
@@ -123,6 +152,7 @@ class BaKCConfig:
     model: ModelConfig
     ensemble: EnsembleConfig
     conformal: ConformalConfig
+    logging: LoggingConfig = field(default_factory=LoggingConfig)
     save_models: bool = True
     save_calibration: bool = True
     save_predictions: bool = True
@@ -148,22 +178,31 @@ class BaKCConfig:
             >>> print(config.data.dataset_name)
             'cardio'
         """
+        logger.info(f"Loading configuration from {path}")
+
         with open(path, 'r') as f:
             config_dict = yaml.safe_load(f)
 
         if config_dict is None:
+            logger.error(f"Empty or invalid YAML file: {path}")
             raise ValueError(f"Empty or invalid YAML file: {path}")
 
+        logger.debug(f"Loaded YAML with {len(config_dict)} sections")
+
         # Create sub-configurations with defaults for missing fields
-        return cls(
+        config = cls(
             data=DataConfig(**config_dict.get('data', {})),
             model=ModelConfig(**config_dict.get('model', {})),
             ensemble=EnsembleConfig(**config_dict.get('ensemble', {})),
             conformal=ConformalConfig(**config_dict.get('conformal', {})),
+            logging=LoggingConfig(**config_dict.get('logging', {})),
             save_models=config_dict.get('save_models', True),
             save_calibration=config_dict.get('save_calibration', True),
             save_predictions=config_dict.get('save_predictions', True),
         )
+
+        logger.info(f"Configuration loaded successfully for dataset '{config.data.dataset_name}'")
+        return config
 
     def validate(self) -> None:
         """
@@ -184,6 +223,8 @@ class BaKCConfig:
         - data_dir exists or can be created
         - output_dir can be created
         """
+        logger.debug("Validating configuration")
+
         # Validate conformal config
         if not (0 < self.conformal.alpha < 1):
             raise ValueError(
@@ -267,13 +308,37 @@ class BaKCConfig:
         # Validate and create directories
         try:
             self.data.output_dir.mkdir(parents=True, exist_ok=True)
+            logger.debug(f"Output directory verified/created: {self.data.output_dir}")
         except Exception as e:
+            logger.error(f"Cannot create output directory {self.data.output_dir}: {e}")
             raise ValueError(
                 f"Cannot create output directory {self.data.output_dir}: {e}"
             )
 
         # Check data_dir exists (will be created if needed during data loading)
         # We don't create it here to avoid clutter
+
+        # Validate logging config
+        allowed_levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
+        if self.logging.level.upper() not in allowed_levels:
+            raise ValueError(
+                f"logging.level must be one of {allowed_levels}, "
+                f"got '{self.logging.level}'"
+            )
+
+        if self.logging.max_log_size_mb <= 0:
+            raise ValueError(
+                f"logging.max_log_size_mb must be positive, "
+                f"got {self.logging.max_log_size_mb}"
+            )
+
+        if self.logging.backup_count < 0:
+            raise ValueError(
+                f"logging.backup_count must be non-negative, "
+                f"got {self.logging.backup_count}"
+            )
+
+        logger.info("Configuration validation passed")
 
     def to_yaml(self, path: str) -> None:
         """
@@ -318,6 +383,13 @@ class BaKCConfig:
                 'quantile_method': self.conformal.quantile_method,
                 'fold_aggregation': self.conformal.fold_aggregation,
                 'cross_fold_aggregation': self.conformal.cross_fold_aggregation,
+            },
+            'logging': {
+                'level': self.logging.level,
+                'enable_file_logging': self.logging.enable_file_logging,
+                'log_file': str(self.logging.log_file) if self.logging.log_file else None,
+                'max_log_size_mb': self.logging.max_log_size_mb,
+                'backup_count': self.logging.backup_count,
             },
             'save_models': self.save_models,
             'save_calibration': self.save_calibration,

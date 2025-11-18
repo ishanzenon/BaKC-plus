@@ -33,6 +33,13 @@ conformal:
   fold_aggregation: "mean"  # How to aggregate scores within a fold
   cross_fold_aggregation: "median"  # How to aggregate scores across folds
 
+logging:
+  level: "INFO"  # Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  enable_file_logging: true  # Enable logging to file
+  log_file: null  # null = default: output/logs/bakc_plus.log
+  max_log_size_mb: 10  # Maximum log file size before rotation (MB)
+  backup_count: 5  # Number of backup log files to keep
+
 # Save options
 save_models: true  # Save trained OC-SVM models to disk
 save_calibration: true  # Save calibration scores

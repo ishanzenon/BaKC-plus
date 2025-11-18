@@ -22,8 +22,9 @@ from .config import (
     ModelConfig,
     EnsembleConfig,
     ConformalConfig,
+    LoggingConfig,
 )
-# from .logger import get_logger  # Will be added in Step 1.3
+from .logger import setup_logging, get_logger
 
 __all__ = [
     "__version__",
@@ -33,4 +34,7 @@ __all__ = [
     "ModelConfig",
     "EnsembleConfig",
     "ConformalConfig",
+    "LoggingConfig",
+    "setup_logging",
+    "get_logger",
 ]
