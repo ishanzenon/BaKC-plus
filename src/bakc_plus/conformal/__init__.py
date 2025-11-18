@@ -5,9 +5,18 @@ This module provides conformal prediction functionality including calibration
 set creation, scoring functions, and prediction with coverage guarantees.
 """
 
-# Exports will be added as modules are implemented
-# from .calibration import CalibrationSetCreator
-# from .scoring import ScoringFunctions
-# from .prediction import ConformalPredictor
+from .scoring import sigmoid_score
+from .prediction import (
+    compute_threshold,
+    predict_anomalies,
+    ConformalPredictor
+)
 
-__all__ = []
+__all__ = [
+    # Scoring
+    'sigmoid_score',
+    # Prediction
+    'compute_threshold',
+    'predict_anomalies',
+    'ConformalPredictor',
+]
