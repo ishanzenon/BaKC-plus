@@ -15,11 +15,22 @@ __author__ = "BaKC-plus Development Team"
 # Version info
 VERSION = __version__
 
-# Package-level imports (will be added as modules are implemented)
-# from .config import BaKCConfig
-# from .logger import get_logger
+# Package-level imports
+from .config import (
+    BaKCConfig,
+    DataConfig,
+    ModelConfig,
+    EnsembleConfig,
+    ConformalConfig,
+)
+# from .logger import get_logger  # Will be added in Step 1.3
 
 __all__ = [
     "__version__",
     "VERSION",
+    "BaKCConfig",
+    "DataConfig",
+    "ModelConfig",
+    "EnsembleConfig",
+    "ConformalConfig",
 ]
