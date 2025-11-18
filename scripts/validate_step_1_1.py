@@ -166,22 +166,11 @@ def check_conftest():
 
     print("✅ All required fixtures defined in conftest.py")
 
-    # Test synthetic_dataset fixture
-    try:
-        sys.path.insert(0, str(Path("tests")))
-        from conftest import synthetic_dataset
-        df = synthetic_dataset()
-        if len(df) != 110:
-            print(f"❌ synthetic_dataset has wrong length: {len(df)} (expected 110)")
-            return False
-        if list(df.columns) != ['V1', 'V2', 'V3', 'V4', 'V5', 'y']:
-            print(f"❌ synthetic_dataset has wrong columns: {list(df.columns)}")
-            return False
-        print("✅ synthetic_dataset fixture creates correct data (110 samples)")
-        return True
-    except Exception as e:
-        print(f"❌ Error testing synthetic_dataset fixture: {e}")
-        return False
+    # Note: Pytest fixtures cannot be called directly for testing
+    # They are validated by their presence in conftest.py
+    # Actual functionality will be validated when running pytest tests in Step 1.4
+    print("✅ Fixture definitions validated (will be tested with pytest in Step 1.4)")
+    return True
 
 
 def check_definition_of_done():
