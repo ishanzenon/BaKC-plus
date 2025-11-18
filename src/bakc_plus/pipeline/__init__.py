@@ -4,9 +4,9 @@ Pipeline module for BaKC-plus
 This module provides end-to-end pipeline orchestration for training and evaluation.
 """
 
-# Exports will be added as modules are implemented
-# from .trainer import Trainer
-# from .evaluator import Evaluator
-# from .orchestrator import Orchestrator
+from .training import TrainingPipeline, train_pipeline
 
-__all__ = []
+__all__ = [
+    'TrainingPipeline',
+    'train_pipeline',
+]
