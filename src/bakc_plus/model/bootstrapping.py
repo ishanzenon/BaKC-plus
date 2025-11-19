@@ -155,16 +155,16 @@ class StratifiedBootstrapper:
             f"fold {fold_idx}, data shape {X_train.shape}"
         )
 
-        # CRITICAL: Use SAME shuffle for all members
-        # Only fold_idx and random_state determine the shuffle, NOT member_idx
-        # This ensures non-overlapping leave-out sets and complete coverage
-        rnd = hash((fold_idx, random_state)) % 4294967296
+        # CRITICAL: EXACT notebook formula (cell 44)
+        # Hash includes member_idx, fold_idx, and random_state
+        # Each member gets a DIFFERENT shuffle for diversity
+        rnd = hash((member_idx, fold_idx, random_state)) % 4294967296
         rnd = rnd ^ 0x7FFFFFFF
 
         self.logger.debug(
             f"Shuffle random state: "
-            f"hash(({fold_idx}, {random_state})) -> {rnd} "
-            f"(same for all members)"
+            f"hash(({member_idx}, {fold_idx}, {random_state})) -> {rnd} "
+            f"(unique per member)"
         )
 
         # Create random state with hashed seed

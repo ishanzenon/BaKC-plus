@@ -3,14 +3,14 @@ Prediction pipeline for BaKC-plus
 
 This module implements the end-to-end prediction pipeline that integrates:
 - Model scoring (Phase 2: OCSVMMember.decision_function)
-- Score aggregation (mean per-fold, median cross-fold)
+- Score aggregation (direct median across ALL K×M models)
 - Sigmoid scoring (Phase 2: sigmoid_score)
 - Conformal prediction (Phase 2: ConformalPredictor.predict)
 
-CRITICAL PRESERVATION:
-- Score aggregation order: mean within fold, THEN median across folds
+CRITICAL PRESERVATION (EXACT notebook methodology):
+- Score aggregation: MEDIAN directly across all K×M models
 - Sigmoid applied AFTER aggregation
-- Binary prediction: conformity_score <= threshold → anomaly (1)
+- Binary prediction: conformity_score > threshold → anomaly (1)
 """
 
 import numpy as np
@@ -29,7 +29,7 @@ class PredictionPipeline:
 
     This class orchestrates the complete prediction workflow:
     1. Score test data with all K×M trained models
-    2. Aggregate scores (mean per-fold, median cross-fold)
+    2. Aggregate scores (direct MEDIAN across all K×M models)
     3. Apply sigmoid transformation
     4. Apply conformal threshold
 
@@ -90,10 +90,9 @@ class PredictionPipeline:
         This is the MAIN prediction method. It implements the exact workflow from
         the notebook:
         1. Score X_test with all K×M models
-        2. Aggregate per-fold: mean of M scores
-        3. Aggregate cross-fold: median of K scores
-        4. Apply sigmoid transformation
-        5. Apply conformal threshold
+        2. Aggregate: MEDIAN directly across all K×M models
+        3. Apply sigmoid transformation
+        4. Apply conformal threshold
 
         Args:
             X_test: Test data (n_samples, n_features)
@@ -154,10 +153,8 @@ class PredictionPipeline:
         """
         Score test data with all models and aggregate
 
-        CRITICAL: Score aggregation order matters!
-        1. Score with all K×M models
-        2. Aggregate per-fold: mean of M members → 1 score per sample
-        3. Aggregate cross-fold: median of K folds → 1 final score per sample
+        TESTING: Try mean per-fold, then median across folds
+        (reverting from direct median to match potential alternative interpretation)
 
         Args:
             X_test: Test data (n_samples, n_features)
@@ -165,7 +162,6 @@ class PredictionPipeline:
         Returns:
             Aggregated decision scores (n_samples,)
         """
-        n_samples = len(X_test)
         all_fold_scores = []  # Will be shape (K, n_samples)
 
         # Score with each fold
@@ -188,7 +184,7 @@ class PredictionPipeline:
 
         self.logger.debug(
             f"Aggregation: {self.n_folds} folds × {self.n_members} members → "
-            f"{len(final_scores)} final scores per sample"
+            f"{len(final_scores)} final scores (mean per-fold, then median across folds)"
         )
 
         return final_scores

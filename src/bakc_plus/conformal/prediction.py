@@ -126,8 +126,9 @@ def predict_anomalies(
     if conformity_scores is None or len(conformity_scores) == 0:
         raise ValueError("conformity_scores is empty or None")
 
-    # Binary prediction: score <= threshold → anomaly (1)
-    predictions = (conformity_scores <= threshold).astype(int)
+    # Binary prediction: score > threshold → anomaly (1)
+    # EXACT notebook formula (cell 54): p_values = (scores > qhat).astype(int)
+    predictions = (conformity_scores > threshold).astype(int)
 
     n_anomalies = np.sum(predictions)
     logger.debug(
