@@ -16,14 +16,6 @@
 
 ---
 
-### Abstract
-
-Given the increasing usage of black-box Machine Learning models in high-risk scenarios such as clinical trials and fraud detection, a need for safe, robust and trustworthy machine learning solutions with reliable outcomes becomes all the more paramount. Uncertainty quantification in anomaly detection applications helps the cause of trustworthiness in non-parametric models used in One-Class classification.
-
-While ensembles and the sampling approach can quantify uncertainty by learning on varied distributions of data and aggregating multiple predictions on test data, making the results more robust, statistical guarantees for Type-I Errors are not provided by ensembling and sampling techniques. This is where conformal prediction comes into play, providing statistical guarantees for controlling Type-I errors (false positives) below a user-specified error threshold, whilst not compromising on the Type-II errors (false negatives).
-
-**This work proposes BaKC+**, a novel approach for cross-conformal anomaly detection by combining K-fold cross-validation based cross-conformal prediction with ensembles and sampling techniques. BaKC+ proves to be a model-agnostic, distribution-free uncertainty quantification technique for highly imbalanced datasets, providing conformal guarantees for Type-I errors whilst showcasing high statistical power. Without additional post-hoc operations for Type-I error control needed, BaKC+ outperforms existing cross-conformal frameworks on benchmark anomaly detection datasets, and demonstrates itself to be a robust and reliable conformal anomaly detection framework, providing highly certain outcomes to the data analyst.
-
 ## Table of Contents
 
 - [Overview](#overview)
@@ -529,8 +521,7 @@ If you use this code in your research, please cite our COPA 2025 paper:
   month = 	 {10--12 Sep},
   publisher =    {PMLR},
   pdf = 	 {https://raw.githubusercontent.com/mlresearch/v266/main/assets/garg25a/garg25a.pdf},
-  url = 	 {https://proceedings.mlr.press/v266/garg25a.html},
-  abstract = 	 {Given the increasing usage of black-box Machine Learning models in high-risk scenarios such as clinical trials and fraud detection, a need for safe, robust and trustworthy machine learning solutions with reliable outcomes becomes all the more paramount. Uncertainty quantification in anomaly detection applications helps the cause of trustworthiness in non-parametric models used in One-Class classification. While ensembles and the sampling approach can quantify uncertainty by learning on varied distributions of data and aggregating multiple predictions on test data, making the results more robust, statistical guarantees for Type-I Errors are not provided by ensembling and sampling techniques. This is where conformal prediction comes into play, providing statistical guarantees for controlling Type-I errors (false positives) below a user-specified error threshold, whilst not compromising on the Type-II errors (false negatives). This work proposes B_aKC+, a novel approach for cross-conformal anomaly detection by combining K-fold cross-validation based cross-conformal prediction with ensembles and sampling techniques. B_aKC+ proves to be a model-agnostic, distribution-free uncertainty quantification technique for highly imbalanced datasets, providing conformal guarantees for Type-I errors whilst showcasing high statistical power. Without additional post-hoc operations for Type-I error control needed, B_aKC+ outperforms existing cross-conformal frameworks on benchmark anomaly detection datasets, and demonstrates itself to be a robust and reliable conformal anomaly detection framework, providing highly certain outcomes to the data analyst.}
+  url = 	 {https://proceedings.mlr.press/v266/garg25a.html}
 }
 ```
 
