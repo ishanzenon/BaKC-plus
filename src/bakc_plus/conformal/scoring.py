@@ -51,8 +51,10 @@ def sigmoid_score(decision_scores: np.ndarray) -> np.ndarray:
         - Preserves input shape
         - Works with both 1D and 2D arrays
     """
-    # CRITICAL: Exact formula from notebook
-    conformity_scores = 1.0 / (1.0 + np.exp(decision_scores))
+    # CRITICAL: Modified to invert sigmoid (use -scores instead of scores)
+    # This ensures positive OC-SVM scores (inliers) → high conformity
+    # and negative OC-SVM scores (outliers) → low conformity
+    conformity_scores = 1.0 / (1.0 + np.exp(-decision_scores))
 
     logger.debug(
         f"Sigmoid scoring: {len(decision_scores)} scores, "

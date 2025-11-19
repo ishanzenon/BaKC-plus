@@ -101,8 +101,11 @@ def predict_anomalies(
     Predict anomalies using conformal threshold
 
     Binary classification:
-    - conformity_score <= threshold → anomaly (1)
-    - conformity_score > threshold → normal (0)
+    - conformity_score >= threshold → anomaly (1)
+    - conformity_score < threshold → normal (0)
+
+    NOTE: High conformity scores indicate high non-conformity (anomalies)
+    due to sigmoid transformation of OC-SVM scores.
 
     Args:
         conformity_scores: Conformity scores for test samples
@@ -115,9 +118,9 @@ def predict_anomalies(
 
     Example:
         >>> scores = np.array([0.1, 0.5, 0.9])
-        >>> threshold = 0.3
+        >>> threshold = 0.5
         >>> predictions = predict_anomalies(scores, threshold)
-        >>> # predictions = [1, 0, 0]  (0.1 <= 0.3, 0.5 > 0.3, 0.9 > 0.3)
+        >>> # predictions = [0, 1, 1]  (0.1 < 0.5, 0.5 >= 0.5, 0.9 >= 0.5)
     """
     # Validate inputs
     if conformity_scores is None or len(conformity_scores) == 0:
