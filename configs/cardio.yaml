@@ -1,0 +1,56 @@
+# BaKC-plus Configuration for CARDIO Dataset
+#
+# Dataset Information:
+#   - Total samples: 1,831
+#   - Features: 21 (V1-V21, normalized)
+#   - Anomaly rate: 9.61% (176 outliers, 1,655 inliers)
+#
+# Baseline Performance (from EXECUTION_SUMMARY.md):
+#   - Average Power: 90.29% (detection rate for actual anomalies)
+#   - Average FDR: 8.47% (false discovery rate for inliers)
+#   - 90th Percentile Power: 100%
+#   - 90th Percentile FDR: 12.42%
+#
+# These parameters reproduce the baseline results.
+
+data:
+  dataset_name: "cardio"
+  data_dir: "./data/input"
+  output_dir: "./output/cardio"  # Dataset-specific output directory
+  train_fraction: 0.5  # Use 50% of inliers (827 samples) for training
+  len_cal: null  # Auto-computed based on training size
+  len_test: null  # Auto-computed based on training size
+
+model:
+  nu: 0.05  # CRITICAL: Must preserve for baseline reproduction
+  kernel: "rbf"
+  gamma: "scale"
+  cache_size: 200
+  verbose: false
+
+ensemble:
+  num_models: 5  # CRITICAL: M=5 ensemble members per fold
+  num_folds: null  # K will be computed: len(train)//len_cal (expect ~3 for CARDIO)
+  num_test_splits: 20  # CRITICAL: L=20 test splits
+  num_repetitions: 5  # CRITICAL: J=5 outer repetitions
+  random_state: 42  # CRITICAL: Must be 42 for baseline reproduction
+  use_multiprocessing: true
+  num_workers: null  # Auto-detect
+
+conformal:
+  alpha: 0.05  # CRITICAL: FDR control at 5% level
+  scoring_method: "sigmoid"  # CRITICAL: 1/(1 + exp(score))
+  quantile_method: "higher"  # CRITICAL: numpy quantile method
+  fold_aggregation: "mean"  # CRITICAL: Mean within fold
+  cross_fold_aggregation: "median"  # CRITICAL: Median across folds
+
+logging:
+  level: "INFO"  # Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  enable_file_logging: true  # Enable logging to file
+  log_file: null  # null = default: output/logs/bakc_plus.log
+  max_log_size_mb: 10  # Maximum log file size before rotation (MB)
+  backup_count: 5  # Number of backup log files to keep
+
+save_models: true
+save_calibration: true
+save_predictions: true

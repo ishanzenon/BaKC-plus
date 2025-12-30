@@ -1,0 +1,46 @@
+# Default BaKC-plus Configuration
+# This configuration uses baseline parameters from the original notebook
+
+data:
+  dataset_name: "cardio"
+  data_dir: "./data/input"
+  output_dir: "./output"
+  train_fraction: 0.5
+  # len_cal and len_test are auto-computed if null
+  len_cal: null
+  len_test: null
+
+model:
+  nu: 0.05  # Expected fraction of outliers in training data
+  kernel: "rbf"  # Radial basis function kernel
+  gamma: "scale"  # Kernel coefficient (1 / (n_features * X.var()))
+  cache_size: 200  # Kernel cache size in MB
+  verbose: false
+
+ensemble:
+  num_models: 5  # M: ensemble members per fold
+  num_folds: null  # K: computed dynamically as len(train)//len_cal or max 20
+  num_test_splits: 20  # L: test splits per repetition
+  num_repetitions: 5  # J: outer loop repetitions
+  random_state: 42  # Random seed for reproducibility
+  use_multiprocessing: true  # Enable parallel processing
+  num_workers: null  # Auto-detect CPU count if null
+
+conformal:
+  alpha: 0.05  # FDR control level (target false discovery rate)
+  scoring_method: "sigmoid"  # Options: sigmoid, normalize, signed_ohe
+  quantile_method: "higher"  # numpy quantile method
+  fold_aggregation: "mean"  # How to aggregate scores within a fold
+  cross_fold_aggregation: "median"  # How to aggregate scores across folds
+
+logging:
+  level: "INFO"  # Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  enable_file_logging: true  # Enable logging to file
+  log_file: null  # null = default: output/logs/bakc_plus.log
+  max_log_size_mb: 10  # Maximum log file size before rotation (MB)
+  backup_count: 5  # Number of backup log files to keep
+
+# Save options
+save_models: true  # Save trained OC-SVM models to disk
+save_calibration: true  # Save calibration scores
+save_predictions: true  # Save predictions to CSV
