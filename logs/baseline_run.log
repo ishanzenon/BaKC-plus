@@ -1,0 +1,101 @@
+2025-12-30 06:07:00,715 - INFO - ============================================================
+2025-12-30 06:07:00,715 - INFO - BaKC-plus: Bagging with Conformal Prediction
+2025-12-30 06:07:00,715 - INFO - ============================================================
+2025-12-30 06:07:00,717 - INFO - Directories set up at /home/user/BaKC-plus/output
+2025-12-30 06:07:00,718 - INFO - Deleted folder: /home/user/BaKC-plus/output/calib/models
+2025-12-30 06:07:00,718 - INFO - Created folder: /home/user/BaKC-plus/output/calib/models
+2025-12-30 06:07:00,718 - INFO - Loading dataset from: /home/user/BaKC-plus/data/input/gamma/gamma.csv
+2025-12-30 06:07:00,762 - INFO - Dataset shape: (19020, 11)
+2025-12-30 06:07:00,762 - INFO - Dataset columns: ['V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'y']
+2025-12-30 06:07:00,772 - INFO - Dataset head:
+         V1        V2        V3        V4  ...        V8        V9       V10  y
+0 -0.577211 -0.336795 -0.381120  0.062758  ... -0.405831  0.476803 -1.497826  0
+1 -0.510955 -0.570012 -0.648578  0.820362  ... -0.490081 -0.815397  0.153121  0
+2  2.568210  6.205695  2.615714 -1.875834  ... -2.182972  1.889174  0.842613  0
+3 -0.694749 -0.687241 -1.029451  1.282035  ... -0.355350 -0.658786 -1.031436  0
+4  0.516609  0.476371  0.711138 -0.347497  ...  1.036593 -0.881016  2.176369  0
+
+[5 rows x 11 columns]
+2025-12-30 06:07:00,772 - INFO - Total records: 19020
+2025-12-30 06:07:00,774 - INFO - Inliers count: 12332
+2025-12-30 06:07:00,774 - INFO - Outliers count: 6688
+2025-12-30 06:07:00,774 - INFO - Split sizes - Train: 6166, Calibration: 2000, Test: 2000, Test outliers: 200, Test inliers: 1800
+2025-12-30 06:07:00,774 - INFO - 
+K-Fold split demonstration:
+2025-12-30 06:07:00,776 - INFO - Fold 0: Train size = 18069, Calib size = 951
+2025-12-30 06:07:00,780 - INFO - 
+Inliers X shape: (12332, 10)
+2025-12-30 06:07:00,780 - INFO - Outliers X shape: (6688, 10)
+2025-12-30 06:07:00,781 - INFO - Outliers y head:
+12332    1
+12333    1
+12334    1
+12335    1
+12336    1
+Name: y, dtype: int64
+2025-12-30 06:07:00,781 - INFO - 
+============================================================
+2025-12-30 06:07:00,781 - INFO - STARTING TRAINING
+2025-12-30 06:07:00,781 - INFO - ============================================================
+2025-12-30 06:07:00,781 - INFO - Starting parallel training with J=5 random states, L=20 splits
+Training:   0%|          | 0/5 [00:00<?, ?it/s]2025-12-30 06:07:01,227 - INFO - Training with 6166 samples
+2025-12-30 06:07:01,232 - INFO - Creating calibration sets with 3 splits
+K-Fold:   0%|          | 0/3 [00:00<?, ?it/s]2025-12-30 06:07:01,247 - INFO - Training with 6166 samples
+2025-12-30 06:07:01,252 - INFO - Creating calibration sets with 3 splits
+2025-12-30 06:07:01,257 - INFO - Training with 6166 samples
+2025-12-30 06:07:01,261 - INFO - Creating calibration sets with 3 splits
+K-Fold:   0%|          | 0/3 [00:00<?, ?it/s]K-Fold:   0%|          | 0/3 [00:00<?, ?it/s]2025-12-30 06:07:01,273 - INFO - Training with 6166 samples
+2025-12-30 06:07:01,277 - INFO - Creating calibration sets with 3 splits
+2025-12-30 06:07:01,281 - INFO - Training with 6166 samples
+2025-12-30 06:07:01,285 - INFO - Creating calibration sets with 3 splits
+K-Fold:   0%|          | 0/3 [00:00<?, ?it/s]K-Fold:   0%|          | 0/3 [00:00<?, ?it/s]K-Fold:  33%|███▎      | 1/3 [00:00<00:00,  3.68it/s]K-Fold:  33%|███▎      | 1/3 [00:00<00:00,  3.73it/s]K-Fold:  33%|███▎      | 1/3 [00:00<00:00,  3.29it/s]K-Fold:  33%|███▎      | 1/3 [00:00<00:00,  3.80it/s]K-Fold:  33%|███▎      | 1/3 [00:00<00:00,  3.65it/s]K-Fold:  67%|██████▋   | 2/3 [00:00<00:00,  3.77it/s]K-Fold:  67%|██████▋   | 2/3 [00:00<00:00,  3.67it/s]K-Fold:  67%|██████▋   | 2/3 [00:00<00:00,  3.79it/s]K-Fold:  67%|██████▋   | 2/3 [00:00<00:00,  3.74it/s]K-Fold:  67%|██████▋   | 2/3 [00:00<00:00,  3.31it/s]K-Fold: 100%|██████████| 3/3 [00:00<00:00,  3.79it/s]K-Fold: 100%|██████████| 3/3 [00:00<00:00,  3.78it/s]
+2025-12-30 06:07:02,065 - INFO - Unique visit counts: {1, 2, 3, 4, 5, 6, 7, 8, 9}
+Testing splits (rs=2):   0%|          | 0/20 [00:00<?, ?it/s]K-Fold: 100%|██████████| 3/3 [00:00<00:00,  3.74it/s]K-Fold: 100%|██████████| 3/3 [00:00<00:00,  3.72it/s]
+2025-12-30 06:07:02,071 - INFO - Unique visit counts: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+Testing splits (rs=1):   0%|          | 0/20 [00:00<?, ?it/s]K-Fold: 100%|██████████| 3/3 [00:00<00:00,  3.78it/s]K-Fold: 100%|██████████| 3/3 [00:00<00:00,  3.78it/s]
+2025-12-30 06:07:02,082 - INFO - Unique visit counts: {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+Testing splits (rs=3):   0%|          | 0/20 [00:00<?, ?it/s]K-Fold: 100%|██████████| 3/3 [00:00<00:00,  3.73it/s]K-Fold: 100%|██████████| 3/3 [00:00<00:00,  3.73it/s]
+2025-12-30 06:07:02,101 - INFO - Unique visit counts: {1, 2, 3, 4, 5, 6, 7, 8, 9}
+Testing splits (rs=4):   0%|          | 0/20 [00:00<?, ?it/s]K-Fold: 100%|██████████| 3/3 [00:00<00:00,  3.52it/s]K-Fold: 100%|██████████| 3/3 [00:00<00:00,  3.46it/s]
+2025-12-30 06:07:02,113 - INFO - Unique visit counts: {1, 2, 3, 4, 5, 6, 7, 8}
+Testing splits (rs=0):   0%|          | 0/20 [00:00<?, ?it/s]Testing splits (rs=2):  10%|█         | 2/20 [00:00<00:01, 15.80it/s]Testing splits (rs=1):  10%|█         | 2/20 [00:00<00:01, 15.39it/s]Testing splits (rs=3):  10%|█         | 2/20 [00:00<00:01, 15.58it/s]Testing splits (rs=4):  10%|█         | 2/20 [00:00<00:01, 15.55it/s]Testing splits (rs=0):  10%|█         | 2/20 [00:00<00:01, 15.43it/s]Testing splits (rs=2):  20%|██        | 4/20 [00:00<00:01, 15.86it/s]Testing splits (rs=1):  20%|██        | 4/20 [00:00<00:01, 15.23it/s]Testing splits (rs=3):  20%|██        | 4/20 [00:00<00:01, 15.71it/s]Testing splits (rs=4):  20%|██        | 4/20 [00:00<00:01, 15.96it/s]Testing splits (rs=0):  20%|██        | 4/20 [00:00<00:01, 15.18it/s]Testing splits (rs=2):  30%|███       | 6/20 [00:00<00:00, 15.91it/s]Testing splits (rs=3):  30%|███       | 6/20 [00:00<00:00, 16.05it/s]Testing splits (rs=1):  30%|███       | 6/20 [00:00<00:00, 15.40it/s]Testing splits (rs=4):  30%|███       | 6/20 [00:00<00:00, 15.28it/s]Testing splits (rs=0):  30%|███       | 6/20 [00:00<00:00, 15.30it/s]Testing splits (rs=2):  40%|████      | 8/20 [00:00<00:00, 16.03it/s]Testing splits (rs=3):  40%|████      | 8/20 [00:00<00:00, 16.14it/s]Testing splits (rs=1):  40%|████      | 8/20 [00:00<00:00, 15.57it/s]Testing splits (rs=0):  40%|████      | 8/20 [00:00<00:00, 15.53it/s]Testing splits (rs=4):  40%|████      | 8/20 [00:00<00:00, 14.56it/s]Testing splits (rs=2):  50%|█████     | 10/20 [00:00<00:00, 16.17it/s]Testing splits (rs=3):  50%|█████     | 10/20 [00:00<00:00, 16.04it/s]Testing splits (rs=1):  50%|█████     | 10/20 [00:00<00:00, 15.71it/s]Testing splits (rs=0):  50%|█████     | 10/20 [00:00<00:00, 15.78it/s]Testing splits (rs=4):  50%|█████     | 10/20 [00:00<00:00, 15.07it/s]Testing splits (rs=2):  60%|██████    | 12/20 [00:00<00:00, 16.24it/s]Testing splits (rs=3):  60%|██████    | 12/20 [00:00<00:00, 15.90it/s]Testing splits (rs=1):  60%|██████    | 12/20 [00:00<00:00, 15.82it/s]Testing splits (rs=0):  60%|██████    | 12/20 [00:00<00:00, 15.92it/s]Testing splits (rs=4):  60%|██████    | 12/20 [00:00<00:00, 15.39it/s]Testing splits (rs=2):  70%|███████   | 14/20 [00:00<00:00, 16.27it/s]Testing splits (rs=3):  70%|███████   | 14/20 [00:00<00:00, 15.99it/s]Testing splits (rs=1):  70%|███████   | 14/20 [00:00<00:00, 15.79it/s]Testing splits (rs=0):  70%|███████   | 14/20 [00:00<00:00, 15.93it/s]Testing splits (rs=4):  70%|███████   | 14/20 [00:00<00:00, 15.65it/s]Testing splits (rs=2):  80%|████████  | 16/20 [00:00<00:00, 16.37it/s]Testing splits (rs=3):  80%|████████  | 16/20 [00:00<00:00, 16.12it/s]Testing splits (rs=1):  80%|████████  | 16/20 [00:01<00:00, 15.89it/s]Testing splits (rs=4):  80%|████████  | 16/20 [00:01<00:00, 15.85it/s]Testing splits (rs=0):  80%|████████  | 16/20 [00:01<00:00, 15.73it/s]Testing splits (rs=2):  90%|█████████ | 18/20 [00:01<00:00, 16.42it/s]Testing splits (rs=3):  90%|█████████ | 18/20 [00:01<00:00, 15.90it/s]Testing splits (rs=1):  90%|█████████ | 18/20 [00:01<00:00, 15.17it/s]Testing splits (rs=4):  90%|█████████ | 18/20 [00:01<00:00, 15.80it/s]Testing splits (rs=0):  90%|█████████ | 18/20 [00:01<00:00, 15.47it/s]Testing splits (rs=2): 100%|██████████| 20/20 [00:01<00:00, 16.26it/s]Testing splits (rs=2): 100%|██████████| 20/20 [00:01<00:00, 16.20it/s]
+Training:  20%|██        | 1/5 [00:02<00:08,  2.13s/it]Testing splits (rs=3): 100%|██████████| 20/20 [00:01<00:00, 15.73it/s]Testing splits (rs=3): 100%|██████████| 20/20 [00:01<00:00, 15.89it/s]
+Testing splits (rs=1): 100%|██████████| 20/20 [00:01<00:00, 15.32it/s]Testing splits (rs=1): 100%|██████████| 20/20 [00:01<00:00, 15.49it/s]
+Testing splits (rs=4): 100%|██████████| 20/20 [00:01<00:00, 15.97it/s]Testing splits (rs=4): 100%|██████████| 20/20 [00:01<00:00, 15.61it/s]
+Testing splits (rs=0): 100%|██████████| 20/20 [00:01<00:00, 15.44it/s]Testing splits (rs=0): 100%|██████████| 20/20 [00:01<00:00, 15.56it/s]
+Training: 100%|██████████| 5/5 [00:02<00:00,  2.25it/s]
+2025-12-30 06:07:03,431 - INFO - Collected 100 power values and 100 FDR values
+2025-12-30 06:07:03,433 - INFO - ============================================================
+2025-12-30 06:07:03,433 - INFO - SUMMARY STATISTICS
+2025-12-30 06:07:03,433 - INFO - ============================================================
+2025-12-30 06:07:03,433 - INFO - ------------------- POWER -------------------
+2025-12-30 06:07:03,433 - INFO - Average Power:       0.408582
+2025-12-30 06:07:03,433 - INFO - 90th Quantile Power: 0.447761
+2025-12-30 06:07:03,433 - INFO - Std Power:           0.026135
+2025-12-30 06:07:03,433 - INFO - --------------- FALSE DISCOVERY RATE -----------------
+2025-12-30 06:07:03,433 - INFO - Average FDR:         0.053454
+2025-12-30 06:07:03,433 - INFO - 90th Quantile FDR:   0.068182
+2025-12-30 06:07:03,433 - INFO - Std FDR:             0.012297
+2025-12-30 06:07:03,433 - INFO - ============================================================
+2025-12-30 06:07:04,375 - INFO - Predictions saved to: /home/user/BaKC-plus/output/predictions.csv
+2025-12-30 06:07:04,380 - INFO - Inlier predictions distribution:
+y_pred
+0    29182
+1     1648
+Name: count, dtype: int64
+2025-12-30 06:07:04,381 - INFO - Outlier predictions distribution:
+y_pred
+0    19777
+1    13663
+Name: count, dtype: int64
+2025-12-30 06:07:04,383 - INFO - Metrics saved to: /home/user/BaKC-plus/output/metrics.csv
+2025-12-30 06:07:04,383 - INFO - 
+============================================================
+2025-12-30 06:07:04,383 - INFO - BASELINE EVALUATION
+2025-12-30 06:07:04,383 - INFO - ============================================================
+2025-12-30 06:07:04,383 - INFO - Evaluating baseline One-Class SVM...
+2025-12-30 06:07:04,678 - INFO - Baseline Results - Power: 0.4146, FDR: 0.3300
+2025-12-30 06:07:04,678 - INFO - 
+============================================================
+2025-12-30 06:07:04,678 - INFO - EXECUTION COMPLETE
+2025-12-30 06:07:04,678 - INFO - ============================================================
